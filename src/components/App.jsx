@@ -1,38 +1,95 @@
-import React, { useState } from 'react'
-import Title from './reactComponents/Title'
-import Footer from './reactComponents/Footer'
-import Main from './reactComponents/Main'
-import Modal from './reactComponents/Modal'
-
+import React, { useState, useEffect } from 'react'
+import Card from './reactComponents/Card'
 
 export default function App() {
 
-  const [showEvents, setShowEvents] = useState(true)
-  const [events, setEvents] = useState([
-    { title: "Ea veniam aute ipsum nulla proident in anim fugiat voluptate qui consectetur.", location: "Guangzhou", date: "2023-01-05", id: 1 },
-    { title: "Exercitation proident duis elit ex eu laborum esse.", location: "Aachen", date: "1991-01-05", id: 2 },
-    { title: "Esse aliqua et excepteur Lorem officia tempor anim ea in exercitation incididunt laboris.", location: "New York", date: "2000-01-01", id: 3 },
-  ])
+  const cardImgs = [
+    { "src": "/img/helmet-1.png", "matched": false },
+    { "src": "/img/potion-1.png", "matched": false },
+    { "src": "/img/ring-1.png", "matched": false },
+    { "src": "/img/scroll-1.png", "matched": false },
+    { "src": "/img/shield-1.png", "matched": false },
+    { "src": "/img/sword-1.png", "matched": false },
+  ]
 
-  const addEvent = event => {
-    setEvents(prev => {
-      return [...prev, event]
-    })
+  const [cards, setCards] = useState([])
+  const [turns, setTurns] = useState(0)
+  const [cardOne, setCardOne] = useState('')
+  const [cardTwo, setCardTwo] = useState('')
+  const [disabled, setDisabled] = useState(false)
+  // Shuffle cards
+  const shuffleCards = () => {
+    const shuffled = [...cardImgs, ...cardImgs]
+      .sort(() => Math.random() - 0.5)
+      .map(card => ({ ...card, id: Math.random() * 10 }))
+
+    setCardOne('')
+    setCardTwo('')
+    setCards(shuffled)
+    setTurns(0)
   }
 
+  // Handle a pick
+  const handlePick = card => {
+    !cardOne ? setCardOne(card) : setCardTwo(card)
+  }
 
-  const [showModal, setShowModal] = useState(true)
+  // Compare the picks
+  useEffect(() => {
+    if (cardOne && cardTwo) {
+      setDisabled(true)
+      if (cardOne.src === cardTwo.src) {
+        setCards(prev => prev.map(card => {
+          return card.src === cardOne.src ? { ...card, matched: true } : card
+        }))
+        resetTurn()
+      } else {
+
+        setTimeout(() => resetTurn(), 1000);
+      }
+
+    }
+  }, [cardOne, cardTwo])
+
+  // Reset card
+  const resetTurn = () => {
+    setCardOne('')
+    setCardTwo('')
+    setTurns(prev => prev + 1)
+    setDisabled(false)
+  }
+
+  // Start game on loading
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+
+  // useEffect(() => {
+  //   if (cards.length !== 0) { console.log(cards.filter(card => card.matched === true)) }
+  // }, [cards])
 
   return (
     <div className="App">
 
-      <Title title="Events" subtitle="LOLLOL" />
+      <div className="magic-game-wrapper">
+        <div className="magic-game-container">
+          <h1>Magic Match</h1>
+          <button onClick={shuffleCards}>New Game</button>
 
-      <Main events={events} setEvents={setEvents} showEvents={showEvents} setShowEvents={setShowEvents} />
+          <div className="cards">
+            {cards.map(card => <Card
+              key={card.id}
+              card={card}
+              handlePick={handlePick}
+              flipped={card === cardOne || card === cardTwo || card.matched}
+              disabled={disabled}
+            />)}
+          </div>
 
-      <Footer showModal={showModal} setShowModal={setShowModal} />
+          <p>Turns: {turns}</p>
+        </div>
+      </div>
 
-      <Modal showModal={showModal} setShowModal={setShowModal} addEvent={addEvent} />
 
     </div>
   )

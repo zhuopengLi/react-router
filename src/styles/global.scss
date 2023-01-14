@@ -1,12 +1,12 @@
 @import 'open-props/style';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import './reset';
 
 $bg: 226 48% 11%;
 
 html,
 * {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Raleway', sans-serif;
     color: white;
     overflow: hidden;
 }
@@ -14,197 +14,19 @@ html,
 html {
     background: hsl($bg);
     overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
 }
 
-.App {
+body {
     width: 100%;
-    min-height: 100vh;
-    margin-inline: auto;
-    display: grid;
-    justify-items: center;
+    height: 100%;
 
-    h1 {
-        font-weight: var(--font-weight-7);
-        font-size: var(--font-size-7);
-        text-align: center;
-        color: gold;
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: var(--font-weight-5);
-        margin: var(--font-size-3) auto;
-    }
-
-    div:first-child {
-        margin: auto;
-    }
-
-    main {
-        width: 100%;
-        display: grid;
-        place-items: center;
-
-        div {
-            display: grid;
-            place-items: center;
-
-            h2 {
-                font-weight: var(--font-weight-3);
-                margin-bottom: var(--size-2);
-
-                span {
-                    font-weight: var(--font-weight-6);
-                }
-            }
-
-            > button {
-                margin: 0;
-                font-weight: var(--font-weight-3);
-                background: none;
-                color: white;
-            }
-
-            p {
-                font-style: normal;
-                font-weight: var(--font-weight-2);
-                margin-bottom: var(--size-4);
-            }
-        }
-
-        p {
-            font-style: italic;
-            padding-right: var(--size-1);
-        }
-    }
-
-    button {
-        width: var(--size-12);
-        padding: var(--size-1) var(--size-2);
-        margin: var(--size-7);
-        border: none;
-        border-radius: 9px;
-        border: 2px solid white;
-        cursor: pointer;
-        background: white;
-        color: #292929;
-        font-weight: var(--font-weight-5);
-    }
-
-    footer {
-        display: grid;
-        place-items: center;
-
-        p {
-            font-weight: var(--font-weight-3);
-            font-size: var(--font-size-4);
-
-            &.footer {
-                padding: var(--size-3) auto;
-                text-align: center;
-            }
-
-            span {
-                color: red;
-            }
-        }
-        button {
-            background: hsl($bg);
-            color: white;
-            font-size: var(--font-size-0);
-            border: none;
-            font-weight: var(--font-weight-3);
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
-.modal {
-    &-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
+    .App {
         width: 100%;
         height: 100%;
-        background: hsl(0, 0%, 0%, 0.8);
         display: grid;
         place-items: center;
-    }
-
-    &-container {
-        padding: 30px;
-        max-width: 480px;
-        margin: auto auto;
-        background: white;
-        border-radius: 10px;
-        color: #292929;
-        display: grid;
-        place-items: center;
-
-        * {
-            color: inherit;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        button {
-            font-size: var(--font-size-2);
-            background: hsl(0, 0%, 50%, 0.3);
-        }
-
-        > button {
-            margin: 0;
-            justify-self: end;
-            width: auto;
-            border-radius: 50%;
-            text-align: center;
-
-            &:hover {
-                background: white;
-                border-color: #292929;
-                border-style: dashed;
-            }
-        }
-    }
-}
-
-.new-event-form {
-    width: 100%;
-    display: grid;
-
-    label,
-    input,
-    select {
-        display: block;
-        text-align: left;
-        width: 100%;
-        margin: 10px auto;
-        padding: 10px;
-        font-size: var(--font-size-3);
-    }
-
-    button {
-        margin: var(--size-3) auto;
-    }
-
-    p {
-        margin: var(--size-3) auto;
-
-        &:last-child {
-            cursor: pointer;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
     }
 }
