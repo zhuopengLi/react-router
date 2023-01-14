@@ -20,13 +20,72 @@ html {
 }
 
 body {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+}
 
-    .App {
-        width: 100%;
-        height: 100%;
-        display: grid;
-        place-items: center;
+.App {
+    width: 100%;
+    max-width: 1200px;
+    margin: var(--size-3) auto;
+}
+
+nav {
+    display: flex;
+    margin: 0 auto 60px;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: var(--size-3);
+
+    h1 {
+        margin-right: auto;
+
+        a {
+            color: white;
+            padding: 0;
+        }
     }
+    a {
+        color: #333;
+        padding: 4px 10px;
+    }
+
+    ul {
+        display: flex;
+        gap: var(--size-5);
+
+        li > a {
+            color: white;
+            padding: var(--size-3);
+
+            &:hover {
+                background: white;
+                color: hsl($bg);
+            }
+
+            &.active {
+                font-weight: var(--font-weight-8);
+            }
+        }
+    }
+}
+
+main {
+    padding: var(--size-3);
+}
+
+.home {
+    .card {
+        padding: var(--size-3);
+        border: 2px solid #e4e4e4;
+        border-radius: 4px;
+        box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.05);
+        margin: var(--size-4);
+    }
+}
+
+p{
+    margin: var(--size-3) 0 ;
 }

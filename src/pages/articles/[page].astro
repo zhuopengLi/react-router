@@ -1,0 +1,25 @@
+---
+export function getStaticPaths() {
+    let paths: any[] = [];
+
+    for (let i = 1; i <= 10; i++) {
+        paths = [...paths, { params: { page: i } }];
+    }
+
+    return paths;
+}
+import BaseHead from '../../components/BaseHead.astro';
+import App from '../../components/App';
+---
+
+<html lang="en">
+    <head>
+        <BaseHead />
+        <style lang="scss" is:global>
+            @import '../../styles/global.scss';
+        </style>
+    </head>
+    <body>
+        <App client:only="react" />
+    </body>
+</html>

@@ -1,0 +1,19 @@
+---
+export function getStaticPaths() {
+    return [{ params: { page: 'contact' } }, { params: { page: 'about' } }];
+}
+import App from '../components/App';
+import BaseHead from '../components/BaseHead.astro';
+---
+
+<html lang="en">
+    <head>
+        <BaseHead />
+        <style lang="scss" is:global>
+            @import '../styles/global.scss';
+        </style>
+    </head>
+    <body>
+        <App client:only="react" />
+    </body>
+</html>

@@ -1,96 +1,40 @@
-import React, { useState, useEffect } from 'react'
-import Card from './reactComponents/Card'
+import React from 'react'
+import { BrowserRouter, Routes, Route, NavLink, Link, redirect } from 'react-router-dom'
+import Home from './reactComponents/Home'
+import About from './reactComponents/About'
+import Contact from './reactComponents/Contact'
+import Article from './reactComponents/Article'
 
 export default function App() {
-
-  const cardImgs = [
-    { "src": "/img/helmet-1.png", "matched": false },
-    { "src": "/img/potion-1.png", "matched": false },
-    { "src": "/img/ring-1.png", "matched": false },
-    { "src": "/img/scroll-1.png", "matched": false },
-    { "src": "/img/shield-1.png", "matched": false },
-    { "src": "/img/sword-1.png", "matched": false },
-  ]
-
-  const [cards, setCards] = useState([])
-  const [turns, setTurns] = useState(0)
-  const [cardOne, setCardOne] = useState('')
-  const [cardTwo, setCardTwo] = useState('')
-  const [disabled, setDisabled] = useState(false)
-  // Shuffle cards
-  const shuffleCards = () => {
-    const shuffled = [...cardImgs, ...cardImgs]
-      .sort(() => Math.random() - 0.5)
-      .map(card => ({ ...card, id: Math.random() * 10 }))
-
-    setCardOne('')
-    setCardTwo('')
-    setCards(shuffled)
-    setTurns(0)
-  }
-
-  // Handle a pick
-  const handlePick = card => {
-    !cardOne ? setCardOne(card) : setCardTwo(card)
-  }
-
-  // Compare the picks
-  useEffect(() => {
-    if (cardOne && cardTwo) {
-      setDisabled(true)
-      if (cardOne.src === cardTwo.src) {
-        setCards(prev => prev.map(card => {
-          return card.src === cardOne.src ? { ...card, matched: true } : card
-        }))
-        resetTurn()
-      } else {
-
-        setTimeout(() => resetTurn(), 1000);
-      }
-
-    }
-  }, [cardOne, cardTwo])
-
-  // Reset card
-  const resetTurn = () => {
-    setCardOne('')
-    setCardTwo('')
-    setTurns(prev => prev + 1)
-    setDisabled(false)
-  }
-
-  // Start game on loading
-  useEffect(() => {
-    shuffleCards()
-  }, [])
-
-  // useEffect(() => {
-  //   if (cards.length !== 0) { console.log(cards.filter(card => card.matched === true)) }
-  // }, [cards])
 
   return (
     <div className="App">
 
-      <div className="magic-game-wrapper">
-        <div className="magic-game-container">
-          <h1>Magic Match</h1>
-          <button onClick={shuffleCards}>New Game</button>
+      <BrowserRouter>
 
-          <div className="cards">
-            {cards.map(card => <Card
-              key={card.id}
-              card={card}
-              handlePick={handlePick}
-              flipped={card === cardOne || card === cardTwo || card.matched}
-              disabled={disabled}
-            />)}
-          </div>
+        <nav>
+          <h1><Link exact="true" to="/">My Articles</Link></h1>
 
-          <p>Turns: {turns}</p>
-        </div>
-      </div>
+          <ul>
+            <li><NavLink exact="true" to="/">Home</NavLink></li>
+            <li><NavLink exact="true" to="/about">About</NavLink></li>
+            <li><NavLink exact="true" to="/contact">Contact</NavLink></li>
+          </ul>
 
+        </nav>
 
+        <main>
+
+          <Routes>
+            <Route path='/' exact="true" element={<Home />} />
+            <Route path='/about' exact="true" element={<About />} />
+            <Route path='/contact' exact="true" element={<Contact />} />
+            <Route path="/articles/:id" exact="true" element={<Article />} />
+            <Route path="*" element={redirect("/")} />
+          </Routes>
+
+        </main>
+      </BrowserRouter>
     </div>
   )
 }
