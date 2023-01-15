@@ -6,7 +6,7 @@ import useFetch from './subComponents/useFetch'
 
 export default function Article() {
     const { id } = useParams()
-    const url = "https://bright-tux.cyclic.app/articles/" + id
+    const url = "https://bright-tux.cyclic.app/react-router/" + id
     const { data: article, isPending, error } = useFetch(url)
     const navigate = useNavigate()
 

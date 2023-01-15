@@ -4,7 +4,7 @@ import useFetch from './subComponents/useFetch'
 
 export default function Home() {
 
-  const { data: articles, isPending, error } = useFetch("https://bright-tux.cyclic.app/articles")
+  const { data: articles, isPending, error } = useFetch("https://bright-tux.cyclic.app/react-router")
 
   return (
     <div className='home'>
